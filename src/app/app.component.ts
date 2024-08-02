@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FetchApiDataService } from './fetch-api-data.service';
-
+import { Component } from '@angular/core';
+import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
+  
   
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
   title = 'myFlix-Angular';
-  movies: any[] = [];
+  
 
-  constructor(private fetchApiDataService: FetchApiDataService) { }
-
-  ngOnInit() {
-    this.fetchApiDataService.getAllMovies().subscribe(movies => {
-      this.movies = movies;
-    });
+  constructor(public dialog: MatDialog) { }
+  // This is the function that will open the dialog when the signup button is clicked  
+  openUserRegistrationDialog(): void {
+      this.dialog.open(UserRegistrationFormComponent, {
+  // Assigning the dialog a width
+      width: '280px'
+      });
+    
   }
 }

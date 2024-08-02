@@ -6,13 +6,14 @@ import { map } from 'rxjs/operators';
 
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = "https://movie-api-7p14.onrender.com/";
+const apiUrl = "https://movie-api-7p14.onrender.com";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FetchApiDataService {
+  
 
   constructor(private http: HttpClient) {
   }
