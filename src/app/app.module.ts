@@ -13,12 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routes } from './app.routes'; 
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserRegistrationFormComponent
+    UserRegistrationFormComponent,
+    UserLoginFormComponent
     
   ],
   imports: [
