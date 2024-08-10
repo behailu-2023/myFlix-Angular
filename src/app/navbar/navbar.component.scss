@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $primary-color;
+  background-color:#1976d2;
   padding: 1rem 2rem;
   color: white;
   
   .navbar-brand {
-    font-size: $font-size-large;
+    font-size: 1.25rem;
     font-weight: bold;
     color: white;
   }
@@ -20,7 +20,7 @@
       color: white;
       background-color: transparent;
       border: none;
-      font-size: $font-size-medium;
+      font-size: 1rem;
       cursor: pointer;
 
       &:hover {
