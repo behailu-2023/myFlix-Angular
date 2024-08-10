@@ -1,0 +1,45 @@
+<div class="user-profile">
+    <h2>User Profile</h2>
+  
+    <form (ngSubmit)="updateUserProfile()">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="updatedUser.Username" name="username" required />
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="updatedUser.Password" name="password" type="password" required />
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="updatedUser.Email" name="email" required />
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Birthdate</mat-label>
+        <input matInput [(ngModel)]="updatedUser.Birthdate" name="birthdate" type="date" required />
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit">Update Profile</button>
+      <button mat-raised-button color="warn" (click)="deleteUserAccount()">Delete Account</button>
+    </form>
+  
+    <h3>Favorite Movies</h3>
+    <div *ngFor="let movie of allMovies">
+      <p>{{ movie.Title }}</p>
+      <button mat-raised-button 
+              *ngIf="!isFavorite(movie._id)" 
+              (click)="addFavoriteMovie(movie._id)">
+        Add to Favorites
+      </button>
+      <button mat-raised-button 
+              color="warn" 
+              *ngIf="isFavorite(movie._id)" 
+              (click)="removeFavoriteMovie(movie._id)">
+        Remove from Favorites
+      </button>
+    </div>
+  </div>
+  

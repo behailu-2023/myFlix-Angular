@@ -1,0 +1,7 @@
+<div *ngIf="genre; else noData">
+  <h1>{{ genre.Name || 'N/A' }}</h1>
+  <p>{{ genre.Description || 'No description available.' }}</p>
+</div>
+<ng-template #noData>
+  <p>Genre information is not available.</p>
+</ng-template>

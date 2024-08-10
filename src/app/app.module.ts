@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,21 +10,49 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule, routes } from './app.routes'; 
+import { AppRoutingModule } from './app.routes'; 
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
+import { MovieCardComponent } from './movie-card/movie-card.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MatIconModule} from '@angular/material/icon';
+//import { FetchApiDataService } from './fetch-api-data.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DirectorComponent } from './director/director.component';
+import { GenreComponent } from './genre/genre.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { TmdbService } from './tmdb.service';
+
+const appRoutes: Routes = [
+  { path: 'welcome', component: WelcomePageComponent },
+  { path: 'movies', component: MovieCardComponent },
+  { path: 'profile', component: UserProfileComponent},
+  { path: 'director', component: DirectorComponent},
+  { path: 'genre', component: GenreComponent},
+  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+];
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegistrationFormComponent,
-    UserLoginFormComponent
+    UserLoginFormComponent,
+    MovieCardComponent,
+    WelcomePageComponent,
+    UserProfileComponent,
+    DirectorComponent,
+    GenreComponent,
+    NavbarComponent,
+    MovieDetailsComponent,
+
     
   ],
   imports: [
-    //AppComponent,
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -36,15 +64,16 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
     MatInputModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    MatIconModule
     
     
     
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    provideHttpClient(withInterceptorsFromDi())
-  ],
-  bootstrap: [AppComponent]
-
+  
+  providers: [TmdbService],
+  bootstrap: [AppComponent],
+  
+  
 })
 export class AppModule { }

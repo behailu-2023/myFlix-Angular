@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  padding: 1rem 2rem;
+  color: white;
+  
+  .navbar-brand {
+    font-size: $font-size-large;
+    font-weight: bold;
+    color: white;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      color: white;
+      background-color: transparent;
+      border: none;
+      font-size: $font-size-medium;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+    }
+  }
+}

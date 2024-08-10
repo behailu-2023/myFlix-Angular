@@ -1,30 +1,277 @@
-// Import Angular Material theming functions
-@use '@angular/material' as mat;
-
-// Define your theme colors
-$my-primary: mat.define-palette(mat.$indigo-palette);
-$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// Define the theme object
-$myFix-Angular-theme: mat.define-light-theme((
-  color: (
-    primary: $my-primary,
-    accent: $my-accent,
-  ),
-  typography: mat.define-typography-config(),
-  density: 0,
-));
-
-// Include Angular Material core styles and theme
-@include mat.core();
-@include mat.all-component-themes($myFix-Angular-theme);
-
-// Global styles
-html, body {
-  height: 100%;
+/* Global Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+}
+
+/* Color Palette */
+$primary-color: #1976d2;
+$secondary-color: #424242;
+$accent-color: #ff4081;
+$background-color: #ffffff;
+$text-color: #333;
+$light-text-color: #757575;
+
+/* Font Sizes */
+$font-size-small: 0.875rem;  /* 14px */
+$font-size-medium: 1rem;      /* 16px */
+$font-size-large: 1.25rem;    /* 20px */
+$font-size-xlarge: 1.5rem;    /* 24px */
+
+/* Heading Hierarchy */
+h1, .h1 {
+  font-size: 2.5rem;          /* 40px */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: $primary-color;
+}
+
+h2, .h2 {
+  font-size: 2rem;            /* 32px */
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: $secondary-color;
+}
+
+h3, .h3 {
+  font-size: 1.75rem;         /* 28px */
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+h4, .h4 {
+  font-size: 1.5rem;          /* 24px */
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: $font-size-medium;
+  margin-bottom: 1rem;
+  color: $text-color;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Buttons */
+button, .mat-button {
+  font-size: $font-size-medium;
+  background-color: $primary-color;
+  color: $background-color;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+/* Card Styles */
+.mat-card {
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.mat-card-header {
+  padding-bottom: 0;
+}
+
+.mat-card-title {
+  font-size: $font-size-large;
+  color: $primary-color;
+}
+
+.mat-card-subtitle {
+  font-size: $font-size-small;
+  color: $light-text-color;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.mat-card img {
+  border-radius: 4px;
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive Utilities */
+@media (max-width: 1200px) {
+  h1, .h1 {
+    font-size: 2rem;  /* 32px */
+  }
+
+  h2, .h2 {
+    font-size: 1.75rem;  /* 28px */
+  }
+
+  h3, .h3 {
+    font-size: 1.5rem;  /* 24px */
+  }
+
+  h4, .h4 {
+    font-size: 1.25rem;  /* 20px */
+  }
+
+  p, button, .mat-button {
+    font-size: $font-size-small;  /* 14px */
+  }
+
+  .mat-card-title {
+    font-size: $font-size-medium;  /* 16px */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-links button {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .mat-card {
+    margin-bottom: 1rem;
+  }
+
+  .movie-card-container {
+    flex-direction: column;
+  }
+
+  .mat-card {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .h1 {
+    font-size: 1.75rem;  /* 28px */
+  }
+
+  h2, .h2 {
+    font-size: 1.5rem;  /* 24px */
+  }
+
+  h3, .h3 {
+    font-size: 1.25rem;  /* 20px */
+  }
+
+  h4, .h4 {
+    font-size: 1.125rem;  /* 18px */
+  }
+
+  p, button, .mat-button {
+    font-size: 0.875rem;  /* 14px */
+  }
+
+  .mat-card-title {
+    font-size: $font-size-small;  /* 14px */
+  }
+
+  .mat-card {
+    padding: 1rem;
+  }
+}
+
+/* Movie Card Container */
+.movie-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+}
+
+.mat-card {
+  flex: 1 1 calc(25% - 2rem);  /* 4 cards per row */
+  margin: 1rem;
+  
+  @media (max-width: 1200px) {
+    flex: 1 1 calc(33.333% - 2rem);  /* 3 cards per row */
+  }
+
+  @media (max-width: 768px) {
+    flex: 1 1 calc(50% - 2rem);  /* 2 cards per row */
+  }
+
+  @media (max-width: 480px) {
+    flex: 1 1 100%;  /* 1 card per row */
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px; /* Set this to your preferred max height */
+  object-fit: cover;
+  border-radius: 8px;
+}
+@media (max-width: 768px) {
+  img {
+    max-height: 200px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  img {
+    max-height: 150px; /* Further adjustment for very small screens */
+  }
+}
+
+
+@import '@angular/material/theming';
+
+@include mat-core();
+
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$warn: mat-palette($mat-red);
+
+$theme: mat-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: mat-typography-config()
+));
+
+@include angular-material-theme($theme);
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: $text-color;
 }
