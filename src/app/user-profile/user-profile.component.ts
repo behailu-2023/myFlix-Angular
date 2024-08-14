@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     public fetchApiData: FetchApiDataService,
     public snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<UserProfileComponent>
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +25,6 @@ export class UserProfileComponent implements OnInit {
     this.getAllMovies();
   }
 
-  // Method to get user profile data
   getUserProfile(): void {
     this.fetchApiData.getOneUser().subscribe((response: any) => {
       this.user = response;
@@ -34,21 +33,18 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Method to get all movies
   getAllMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.allMovies = response;
     });
   }
 
-  // Method to get user's favorite movies
   getFavoriteMovies(): void {
     this.fetchApiData.getFavoriteMovies().subscribe((movies: any[]) => {
       this.favoriteMovies = movies;
     });
   }
 
-  // Method to update user profile data
   updateUserProfile(): void {
     this.fetchApiData.editUser(this.updatedUser).subscribe({
       next: (response: any) => {
@@ -56,9 +52,9 @@ export class UserProfileComponent implements OnInit {
           duration: 2000,
         });
         localStorage.setItem('user', JSON.stringify(response));
-        this.dialogRef.close();
+        this.router.navigate(['movies']);  // Navigate to movies after update
       },
-      error: (response: any) => {
+      error: () => {
         this.snackBar.open('Profile update failed.', 'OK', {
           duration: 2000,
         });
@@ -66,41 +62,6 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Method to add a movie to favorites
-  addFavoriteMovie(movieId: string): void {
-    this.fetchApiData.addFavoriteMovie(movieId).subscribe({
-      next: () => {
-        this.snackBar.open('Movie added to favorites!', 'OK', {
-          duration: 2000,
-        });
-        this.getFavoriteMovies(); // Refresh the list of favorite movies
-      },
-      error: () => {
-        this.snackBar.open('Failed to add movie to favorites.', 'OK', {
-          duration: 2000,
-        });
-      },
-    });
-  }
-
-  // Method to remove a movie from favorites
-  removeFavoriteMovie(movieId: string): void {
-    this.fetchApiData.deleteFavoriteMovie(movieId).subscribe({
-      next: () => {
-        this.snackBar.open('Movie removed from favorites!', 'OK', {
-          duration: 2000,
-        });
-        this.getFavoriteMovies(); // Refresh the list of favorite movies
-      },
-      error: () => {
-        this.snackBar.open('Failed to remove movie from favorites.', 'OK', {
-          duration: 2000,
-        });
-      },
-    });
-  }
-
-  // Method to delete the user account
   deleteUserAccount(): void {
     this.fetchApiData.deleteUser().subscribe({
       next: () => {
@@ -108,7 +69,7 @@ export class UserProfileComponent implements OnInit {
           duration: 2000,
         });
         localStorage.clear();
-        this.dialogRef.close();
+        this.router.navigate(['welcome']);
       },
       error: () => {
         this.snackBar.open('Failed to delete account.', 'OK', {
@@ -118,7 +79,38 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Check if a movie is in the user's favorites
+  addFavoriteMovie(movieId: string): void {
+    this.fetchApiData.addFavoriteMovie(movieId).subscribe({
+      next: () => {
+        this.snackBar.open('Movie added to favorites!', 'OK', {
+          duration: 2000,
+        });
+        this.getFavoriteMovies(); 
+      },
+      error: () => {
+        this.snackBar.open('Failed to add movie to favorites.', 'OK', {
+          duration: 2000,
+        });
+      },
+    });
+  }
+
+  removeFavoriteMovie(movieId: string): void {
+    this.fetchApiData.deleteFavoriteMovie(movieId).subscribe({
+      next: () => {
+        this.snackBar.open('Movie removed from favorites!', 'OK', {
+          duration: 2000,
+        });
+        this.getFavoriteMovies(); 
+      },
+      error: () => {
+        this.snackBar.open('Failed to remove movie from favorites.', 'OK', {
+          duration: 2000,
+        });
+      },
+    });
+  }
+
   isFavorite(movieId: string): boolean {
     return this.favoriteMovies.includes(movieId);
   }

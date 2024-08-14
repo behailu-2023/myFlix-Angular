@@ -1,26 +1,18 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { FetchApiDataService } from '../fetch-api-data.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean = false;
 
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private fetchApiData: FetchApiDataService
-  ) { }
+  constructor(private router: Router) {}
 
-  openUserProfileDialog(): void {
-    this.dialog.open(UserProfileComponent, {
-      width: '400px'
-    });
+  ngOnInit(): void {
+    this.isLoggedIn = !!localStorage.getItem('token'); // Check if token is present
   }
 
   logout(): void {
@@ -34,5 +26,9 @@ export class NavbarComponent {
 
   goToFavorites(): void {
     this.router.navigate(['favorites']);
+  }
+
+  openUserProfile(): void {
+    this.router.navigate(['profile']);
   }
 }

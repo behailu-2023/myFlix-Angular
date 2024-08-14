@@ -1,0 +1,8 @@
+{
+    "/api": {
+      "target": "https://movie-api-7p14.onrender.com/",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }

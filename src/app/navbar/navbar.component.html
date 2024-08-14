@@ -1,12 +1,11 @@
-<nav class="navbar">
-    <div class="navbar-brand">
-      <a (click)="goToMovies()">MyFlix</a>
-    </div>
-    <div class="navbar-links">
-      <button mat-button (click)="goToMovies()">Movies</button>
-      <button mat-button (click)="goToFavorites()">Favorites</button>
-      <button mat-button (click)="openUserProfileDialog()">Profile</button>
-      <button mat-button color="warn" (click)="logout()">Logout</button>
-    </div>
-  </nav>
-  
+<nav class="navbar" *ngIf="isLoggedIn">
+  <div class="navbar-brand">
+    <a (click)="goToMovies()">MyFlix</a>
+  </div>
+  <div class="navbar-links">
+    <button mat-button (click)="goToMovies()">Movies</button>
+    <button mat-button (click)="goToFavorites()">Favorites</button>
+    <button mat-button (click)="openUserProfile()">Profile</button>
+    <button mat-button color="warn" (click)="logout()">Logout</button>
+  </div>
+</nav>
