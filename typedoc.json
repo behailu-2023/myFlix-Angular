@@ -1,0 +1,11 @@
+{
+    "entryPoints": ["src/app/fetch-api-data.service.ts"],
+    "out": "docs",
+    "includeVersion": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeNotDocumented": true,
+    "hideGenerator": true
+  }
+  
