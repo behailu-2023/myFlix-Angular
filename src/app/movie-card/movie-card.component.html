@@ -1,10 +1,10 @@
 <div class="movie-card-container">
   <mat-card *ngFor="let movie of movies;">
     <mat-card-header>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
+      <mat-card-title>{{ movie.Title }}</mat-card-title>
       <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="movie.poster" alt="{{ movie.title }}">
+    <img mat-card-image [src]="movie.poster" alt="{{ movie.Title }}">
     <mat-card-content>
       <p>{{ movie.Genre.Name }}</p>
     </mat-card-content>

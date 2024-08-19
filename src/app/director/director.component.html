@@ -1,10 +1,9 @@
 <div *ngIf="director; else noData">
-    <h1>{{ director.Name || 'N/A' }}</h1>
-    <p>{{ director.Bio || 'No biography available.' }}</p>
-    <p><strong>Birth:</strong> {{ director.Birth || 'N/A' }}</p>
-    <p *ngIf="director.Death"><strong>Death:</strong> {{ director.Death }}</p>
-  </div>
-  <ng-template #noData>
-    <p>Director information is not available.</p>
-  </ng-template>
-  
+  <h1>{{ director.Name || 'N/A' }}</h1>
+  <p>{{ director.Bio || 'No biography available.' }}</p>
+  <p><strong>Birth:</strong> {{ director.Birth || 'N/A' }}</p>
+  <p *ngIf="director.Death"><strong>Death:</strong> {{ director.Death }}</p>
+</div>
+<ng-template #noData>
+  <p>Director information is not available.</p>
+</ng-template>

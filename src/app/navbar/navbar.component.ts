@@ -12,12 +12,20 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = !!localStorage.getItem('token'); // Check if token is present
+    this.checkLoginStatus(); // Check login status on init
+
+    // Listen for changes in localStorage (e.g., when user logs in/out)
+    window.addEventListener('storage', () => this.checkLoginStatus());
+  }
+
+  checkLoginStatus(): void {
+    this.isLoggedIn = !!localStorage.getItem('token'); // Update login status
   }
 
   logout(): void {
     localStorage.clear();
     this.router.navigate(['welcome']);
+    this.checkLoginStatus(); // Update navbar visibility on logout
   }
 
   goToMovies(): void {

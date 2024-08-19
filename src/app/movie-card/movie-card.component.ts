@@ -8,7 +8,7 @@ import { MovieDetailsComponent } from '../movie-details/movie-details.component'
 import { FetchApiDataService } from '../fetch-api-data.service';
 
 interface Movie {
-  title: string;
+  Title: string;
   Genre: { Name: string };
   Director: { Name: string };
   _id: string;
@@ -22,7 +22,7 @@ interface Movie {
 })
 export class MovieCardComponent implements OnInit {
   movies: Movie[] = [];
-  favorites: string[] = [];
+  favoriteMovies: string[] = [];
 
   constructor(
     private tmdbService: TmdbService, 
@@ -40,8 +40,8 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       this.movies.forEach(movie => {
-        this.tmdbService.getMoviePoster(movie.title).subscribe((posterUrl: string) => {
-          movie.poster = posterUrl || 'assets/placeholder.png';
+        this.tmdbService.getMoviePoster(movie.Title).subscribe((posterUrl: string) => {
+          movie.poster = posterUrl;
         });
       });
     });
@@ -49,52 +49,64 @@ export class MovieCardComponent implements OnInit {
 
   getUserFavorites(): void {
     this.fetchApiData.getOneUser().subscribe((user: any) => {
-      this.favorites = user.FavoriteMovies || [];
+      this.favoriteMovies = user.FavoriteMovies || [];
     });
   }
 
   openGenreDialog(genreName: string): void {
     this.fetchApiData.getOneGenre(genreName).subscribe((genre) => {
-      this.dialog.open(GenreComponent, {
-        data: genre,
-        width: '500px'
-      });
+      if (genre) { // Ensure genre data is available
+        this.dialog.open(GenreComponent, {
+          data: genre,
+          width: '500px'
+        });
+      } else {
+        console.error('Genre data not found');
+      }
     });
   }
-
+  
   openDirectorDialog(directorName: string): void {
     this.fetchApiData.getOneDirector(directorName).subscribe((director) => {
-      this.dialog.open(DirectorComponent, {
-        data: director,
-        width: '500px'
-      });
+      if (director) { // Ensure director data is available
+        this.dialog.open(DirectorComponent, {
+          data: director,
+          width: '500px'
+        });
+      } else {
+        console.error('Director data not found');
+      }
     });
   }
-
+  
   openMovieDetailsDialog(movie: Movie): void {
-    this.fetchApiData.getMovieDetails(movie.title).subscribe((response: any) => {
-      this.dialog.open(MovieDetailsComponent, {
-        data: { movie: response },
-        width: '500px'
-      });
+    this.fetchApiData.getMovieDetails(movie.Title).subscribe((response: any) => {
+      if (response) { // Ensure movie details are available
+        this.dialog.open(MovieDetailsComponent, {
+          data: { movie: response },
+          width: '500px'
+        });
+      } else {
+        console.error('Movie details not found');
+      }
     });
   }
-
-  addToFavorites(movieId: string): void {
-    this.fetchApiData.addFavoriteMovie(movieId).subscribe(() => {
+  addToFavorites(MovieId: string): void {
+    this.fetchApiData.addFavoriteMovie(MovieId).subscribe(() => {
       this.snackBar.open('Movie added to favorites', 'OK', { duration: 2000 });
       this.getUserFavorites();
     });
   }
 
-  removeFromFavorites(movieId: string): void {
-    this.fetchApiData.deleteFavoriteMovie(movieId).subscribe(() => {
+  removeFromFavorites(MoviesId: string): void {
+    this.fetchApiData.deleteFavoriteMovie(MoviesId).subscribe(() => {
       this.snackBar.open('Movie removed from favorites', 'OK', { duration: 2000 });
       this.getUserFavorites();
     });
   }
 
-  isFavorite(movieId: string): boolean {
-    return this.favorites.includes(movieId);
+  isFavorite(MovieId: string): boolean {
+
+    return this.favoriteMovies?.includes(MovieId) || false;
   }
 }

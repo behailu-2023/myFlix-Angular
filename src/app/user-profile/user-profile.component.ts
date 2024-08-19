@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
 
   getFavoriteMovies(): void {
     this.fetchApiData.getFavoriteMovies().subscribe((movies: any[]) => {
+      console.log('Fetched favorite movies:', movies);
       this.favoriteMovies = movies;
     });
   }
@@ -79,8 +80,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  addFavoriteMovie(movieId: string): void {
-    this.fetchApiData.addFavoriteMovie(movieId).subscribe({
+  addFavoriteMovie(MovieId: string): void {
+    this.fetchApiData.addFavoriteMovie(MovieId).subscribe({
       next: () => {
         this.snackBar.open('Movie added to favorites!', 'OK', {
           duration: 2000,
@@ -95,8 +96,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  removeFavoriteMovie(movieId: string): void {
-    this.fetchApiData.deleteFavoriteMovie(movieId).subscribe({
+  removeFavoriteMovie(MoviesId: string): void {
+    this.fetchApiData.deleteFavoriteMovie(MoviesId).subscribe({
       next: () => {
         this.snackBar.open('Movie removed from favorites!', 'OK', {
           duration: 2000,
@@ -111,7 +112,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  isFavorite(movieId: string): boolean {
-    return this.favoriteMovies.includes(movieId);
+  isFavorite(MovieId: string): boolean {
+    console.log('Checking if movie is favorite:', MovieId, this.favoriteMovies);
+    return this.favoriteMovies?.includes(MovieId) || false;
   }
 }

@@ -24,6 +24,7 @@ import { DirectorComponent } from './director/director.component';
 import { GenreComponent } from './genre/genre.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
 import { TmdbService } from './tmdb.service';
 
 const appRoutes: Routes = [
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     GenreComponent,
     NavbarComponent,
     MovieDetailsComponent,
+    FavoriteMoviesComponent
 
     
   ],

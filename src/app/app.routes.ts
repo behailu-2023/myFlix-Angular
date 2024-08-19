@@ -5,7 +5,9 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DirectorComponent } from './director/director.component';
+import { FavoriteMoviesComponent } from './favorite-movies/favorite-movies.component';
 import { GenreComponent } from './genre/genre.component';
+
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -13,6 +15,7 @@ export const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   { path: 'director', component: DirectorComponent},
   { path: 'genre', component: GenreComponent},
+  { path: 'favorites', component: FavoriteMoviesComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
  ];
 
